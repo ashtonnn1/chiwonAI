@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chiwon.ai — Our Philosophy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0f;
+      --ink-light: #6b6b6b;
+      --ink-faint: #c8c8c8;
+      --paper: #f7f5f0;
+      --paper-white: #ffffff;
+      --accent: #c8472b;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      background: rgba(247, 245, 240, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--ink-faint);
+    }
+    .nav-left { display: flex; align-items: center; gap: 2rem; }
+    .nav-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .lang-switcher { display: flex; }
+    .lang-btn {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      background: none;
+      border: 1px solid var(--ink-faint);
+      color: var(--ink-light);
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .lang-btn:first-child { border-radius: 2px 0 0 2px; }
+    .lang-btn:last-child { border-radius: 0 2px 2px 0; }
+    .lang-btn + .lang-btn { border-left: none; }
+    .lang-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .lang-btn:not(.active):hover { border-color: var(--ink); color: var(--ink); }
+    .nav-back {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-back:hover { color: var(--accent); }
+
+    /* LAYOUT */
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 8rem 3rem 6rem;
+    }
+
+    /* HEADER */
+    .doc-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .doc-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .doc-subtitle {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid var(--ink-faint);
+    }
+
+    /* BODY */
+    .doc-section { margin-bottom: 3.5rem; }
+    .doc-section-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.3rem;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.25rem;
+      color: var(--ink);
+    }
+    .doc-section-subtitle {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      margin-top: 2rem;
+    }
+    .doc-p {
+      font-size: 1rem;
+      color: var(--ink-light);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+    .doc-p strong { color: var(--ink); font-weight: 500; }
+    .doc-p em { font-style: italic; }
+
+    .doc-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--ink-faint);
+      opacity: 0.5;
+      margin: 3rem 0;
+    }
+
+    /* PRINCIPLE BLOCK */
+    .principle-block {
+      border-left: 2px solid var(--accent);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+      background: rgba(200, 71, 43, 0.03);
+    }
+    .principle-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+    .principle-text {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--ink);
+    }
+
+    /* COMMIT LIST */
+    .commit-list { list-style: none; margin: 1rem 0; }
+    .commit-list li {
+      font-size: 0.95rem;
+      color: var(--ink-light);
+      line-height: 1.7;
+      padding: 0.5rem 0 0.5rem 1.5rem;
+      position: relative;
+      border-bottom: 1px solid rgba(200,200,200,0.3);
+    }
+    .commit-list li:last-child { border-bottom: none; }
+    .commit-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* NOT BUILDING */
+    .not-building {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 2rem;
+      margin: 1.5rem 0;
+    }
+    .not-building-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 1rem;
+    }
+    .not-building ul { list-style: none; }
+    .not-building ul li {
+      font-size: 0.9rem;
+      color: #a0a0a0;
+      line-height: 1.7;
+      padding: 0.4rem 0 0.4rem 1.5rem;
+      position: relative;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .not-building ul li:last-child { border-bottom: none; }
+    .not-building ul li::before {
+      content: '×';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    /* CLOSING */
+    .doc-closing {
+      margin-top: 4rem;
+      padding-top: 3rem;
+      border-top: 1px solid var(--ink-faint);
+      text-align: center;
+    }
+    .doc-closing-korean {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 2.5rem;
+      color: var(--ink-faint);
+      margin-bottom: 1rem;
+    }
+    .doc-closing-text {
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink-light);
+      max-width: 500px;
+      margin: 0 auto 2rem;
+      line-height: 1.7;
+    }
+    .doc-closing-link {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .doc-closing-link:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--ink-faint);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; color: var(--ink); }
+    .footer-logo span { color: var(--accent); }
+    .footer-note { font-size: 0.78rem; color: var(--ink-faint); }
+
+    @media (max-width: 700px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-left { gap: 1rem; }
+      .page { padding: 7rem 1.5rem 4rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-left">
+      <a href="chiwon-landing.html" class="nav-logo">chiwon<span>.ai</span></a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en', event)">EN</button>
+        <button class="lang-btn" onclick="setLang('ko', event)">한글</button>
+        <button class="lang-btn" onclick="setLang('es', event)">ES</button>
+      </div>
+    </div>
+    <a href="chiwon-landing.html" class="nav-back" data-i18n="nav_back">← Back</a>
+  </nav>
+
+  <div class="page">
+
+    <p class="doc-eyebrow" data-i18n="eyebrow">Our Philosophy</p>
+    <h1 class="doc-title" data-i18n="title">The chiwon.ai Constitution</h1>
+    <p class="doc-subtitle" data-i18n="subtitle">치원 (Chiwon): far-reaching wisdom. Named for the 최부자 (Choi Buja) family of Gyeongju, Korea — who sustained prosperity, integrity, and community stewardship for over 400 years without exploitation.</p>
+
+    <!-- PREAMBLE -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s1_title">Preamble</h2>
+      <p class="doc-p" data-i18n="s1_p1">AI is transforming how commerce works. Agents are beginning to act autonomously in sales conversations, procurement decisions, contract negotiations, and relationship management — on behalf of companies and individuals alike. This shift is accelerating. And the stakes are high.</p>
+      <p class="doc-p" data-i18n="s1_p2">Done well, agentic AI in commerce can level the playing field — giving every professional the context and intelligence of the world's best, making buying experiences genuinely more efficient and honest, and creating value that flows to both sides of every transaction.</p>
+      <p class="doc-p" data-i18n="s1_p3">Done poorly, it becomes a tool of extraction. AI that manipulates rather than informs. That optimizes for conversion at the expense of trust. That treats the buyer as a target rather than a partner.</p>
+      <p class="doc-p" data-i18n="s1_p4">We founded chiwon.ai because we believe the companies that will endure are the ones that refuse the extractive path — not because it's legally safer, but because it's wrong, and because sustainable prosperity has never been built on exploitation.</p>
+      <p class="doc-p" data-i18n="s1_p5">The 최부자 family governed 400 years of wealth by a simple ethic: never take from those who have nothing; give back to your community before you take for yourself; do business in a way you'd be proud to explain to anyone. We take that inheritance seriously. It is the philosophical foundation of everything we build.</p>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- AGENTIC AI -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s2_title">On Agentic AI in Commerce</h2>
+      <p class="doc-p" data-i18n="s2_p1">Agentic AI — AI that takes actions autonomously, not just answers questions — represents a fundamental shift in how commercial relationships work. What matters is the orientation of the agent: <strong data-i18n="s2_strong">whose interests is it actually optimizing for, and how?</strong></p>
+
+      <p class="doc-section-subtitle" data-i18n="s2_sub1">1. Agents in commerce must be transparent about their nature.</p>
+      <p class="doc-p" data-i18n="s2_p2">An AI acting on behalf of a company in a commercial conversation should not deceive the other party about what it is. We build agents that are honest about their role. Manipulation dressed as intelligence is still manipulation.</p>
+
+      <p class="doc-section-subtitle" data-i18n="s2_sub2">2. Optimization for conversion is not the same as optimization for value.</p>
+      <p class="doc-p" data-i18n="s2_p3">An agent that closes deals by overwhelming a buyer's judgment, exploiting cognitive biases, or hiding relevant information has not created value. It has extracted it. We build agents that optimize for mutual value creation — deals where both parties win, and where the relationship survives the transaction.</p>
+
+      <p class="doc-section-subtitle" data-i18n="s2_sub3">3. The agent serves the human, not the other way around.</p>
+      <p class="doc-p" data-i18n="s2_p4">We are building intelligence tools, not autonomy replacements. Our agents surface context, flag risks, and prepare humans to show up better. They do not replace human judgment in consequential decisions. They enhance it.</p>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- RELATIONSHIPS -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s3_title">On the Role of AI in Relationships</h2>
+      <p class="doc-p" data-i18n="s3_p1">Commerce runs on relationships. Relationships run on trust. Trust is built through consistency, honesty, and genuine care for the other person's outcome.</p>
+      <p class="doc-p" data-i18n="s3_p2">AI that mimics relationship cues without the underlying authenticity is a counterfeit. It may produce short-term results. It will corrode trust at the systems level — making buyers more guarded, making selling harder, making the entire commercial ecosystem more adversarial.</p>
+      <p class="doc-p" data-i18n="s3_p3">We build AI that helps humans be more authentically themselves in their relationships — more prepared, more present, more capable of genuinely caring because they're not drowning in administrative noise. The goal is never to automate the relationship. It's to protect the human space where real relationships form.</p>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- DATA -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s4_title">On Data, Privacy, and Power Asymmetry</h2>
+      <p class="doc-p" data-i18n="s4_p1">Agentic AI in commerce creates enormous data asymmetry. Companies deploying AI agents have access to patterns across thousands of interactions — signals about buyer intent, objection language, deal risk, and behavioral patterns that individual buyers cannot see or respond to. This asymmetry is real, and we take it seriously.</p>
+      <ul class="commit-list">
+        <li data-i18n="s4_c1">Never selling or sharing customer data with third parties</li>
+        <li data-i18n="s4_c2">Building models that explain their reasoning, not just their outputs</li>
+        <li data-i18n="s4_c3">Giving customers full visibility into what signals our agents are using</li>
+        <li data-i18n="s4_c4">Designing features that would pass the "newspaper test" — would we be comfortable if the full mechanism were publicly explained?</li>
+      </ul>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- BILATERAL -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s5_title">On Bilateral Intelligence</h2>
+      <p class="doc-p" data-i18n="s5_p1">Most AI built for commerce is trained on one side of the transaction. Seller data. Conversion patterns. Win/loss signals from the vendor's perspective. The result is a model that gets very good at closing — and knows almost nothing about whether it should.</p>
+      <p class="doc-p" data-i18n="s5_p2">We reject this architecture at the foundational level. chiwon.ai trains on buyer and seller signal simultaneously, from day one. The feedback loop from procurement teams — what felt manipulative, what felt honest, where trust was built, where it broke — is not supplementary data. It is half the training signal.</p>
+
+      <div class="principle-block">
+        <p class="principle-label" data-i18n="s5_pl">Core Principle</p>
+        <p class="principle-text" data-i18n="s5_pt">A model trained only on selling will always optimize for selling. If we want agents that create mutual value, we must train them on mutual value signals. There is no shortcut.</p>
+      </div>
+
+      <p class="doc-p" data-i18n="s5_p3">This commitment has a cost. It makes the data problem harder. It requires relationships on both sides of the market before the product feels complete. We accept that cost because the alternative — a system trained to optimize commerce from only one side — is precisely what we exist to prevent.</p>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- AGENT TO AGENT -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s6_title">On Agent-to-Agent Commerce</h2>
+      <p class="doc-p" data-i18n="s6_p1">We are approaching a threshold that most people have not fully reckoned with: the point at which AI agents are not tools that assist human commerce, but participants in it. When your agent negotiates with my agent — when no human is present, when decisions are made at machine speed across millions of transactions simultaneously — the question of whose interests each agent is optimizing for becomes existential.</p>
+
+      <p class="doc-section-subtitle" data-i18n="s6_sub1">The protocol layer must be built before it is needed, not after.</p>
+      <p class="doc-p" data-i18n="s6_p2">By the time agent-to-agent commerce is ubiquitous, the extractive patterns will already be baked in. The time to set the standard is now, while the norms are still being written. We intend to write them.</p>
+
+      <p class="doc-section-subtitle" data-i18n="s6_sub2">An agent's principal is the human it represents — always.</p>
+      <p class="doc-p" data-i18n="s6_p3">When chiwon.ai's protocol governs a transaction, the agent on each side is accountable to the human who deployed it. Not to the platform. Not to a conversion metric. The human principal's interests are the agent's purpose. This sounds obvious. It is not the default.</p>
+
+      <p class="doc-section-subtitle" data-i18n="s6_sub3">Speed without integrity is just faster extraction.</p>
+      <p class="doc-p" data-i18n="s6_p4">The promise of agent-to-agent commerce is efficiency. But efficiency in service of extractive goals is not a feature — it is an accelerant. We build for speed in service of mutual value.</p>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- SUSTAINABLE COMMERCE -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s7_title">On Sustainable Commerce</h2>
+      <p class="doc-p" data-i18n="s7_p1">The 최부자 family had a principle: don't accumulate more than you need. When a merchant grew too wealthy too fast, they gave back. Not because it was required — because they understood that prosperity extracted from community eventually destroys itself.</p>
+      <ul class="commit-list">
+        <li data-i18n="s7_c1">We price to reflect value created, not value captured</li>
+        <li data-i18n="s7_c2">We turn away customers where we aren't the right fit rather than close deals that set us up to fail</li>
+        <li data-i18n="s7_c3">We share knowledge publicly — writing, research, frameworks — because a rising tide serves us too</li>
+        <li data-i18n="s7_c4">We measure success over years, not quarters</li>
+      </ul>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- WHAT WE ARE NOT BUILDING -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s8_title">What We Are Not Building</h2>
+      <div class="not-building">
+        <p class="not-building-label" data-i18n="s8_label">We will never build</p>
+        <ul>
+          <li data-i18n="s8_n1">AI that replaces human relationship judgment in high-stakes decisions</li>
+          <li data-i18n="s8_n2">Agents that deceive counterparties about their nature or intent</li>
+          <li data-i18n="s8_n3">Features that exploit psychological vulnerabilities to drive conversion</li>
+          <li data-i18n="s8_n4">A platform that extracts value from users' data without clear consent and benefit</li>
+          <li data-i18n="s8_n5">A protocol that optimizes for transaction volume at the expense of transaction integrity</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- CORE VALUES -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s9_title">How We Make Decisions</h2>
+
+      <div class="principle-block">
+        <p class="principle-label">치원 · Far-reaching wisdom</p>
+        <p class="principle-text" data-i18n="s9_v1">We make decisions by asking what we'll think of them in 20 years, not 20 days. Short-term pressure is not a reason to compromise long-term integrity.</p>
+      </div>
+
+      <div class="principle-block">
+        <p class="principle-label" data-i18n="s9_l2">Mutual value creation</p>
+        <p class="principle-text" data-i18n="s9_v2">Every feature, every deal, every partnership should create value for both parties. We are not in the zero-sum business.</p>
+      </div>
+
+      <div class="principle-block">
+        <p class="principle-label" data-i18n="s9_l3">Honesty before comfort</p>
+        <p class="principle-text" data-i18n="s9_v3">We tell customers when our product isn't right for them. We tell each other when something isn't working. Honesty is a practice, not a posture.</p>
+      </div>
+
+      <div class="principle-block">
+        <p class="principle-label" data-i18n="s9_l4">Integrity compounds</p>
+        <p class="principle-text" data-i18n="s9_v4">The 최부자 family understood that reputation built slowly is more valuable than wealth built fast. We are building a reputation for being the company that did this right.</p>
+      </div>
+    </div>
+
+    <div class="doc-divider"></div>
+
+    <!-- SAFETY -->
+    <div class="doc-section">
+      <h2 class="doc-section-title" data-i18n="s10_title">On Safety in Agentic Commerce</h2>
+      <p class="doc-p" data-i18n="s10_p1">We take seriously that autonomous agents acting in commercial contexts can cause harm — to buyers, to market dynamics, and to the humans whose livelihoods depend on relationships working with integrity. Manipulation at human speed is bad. Manipulation at machine speed across millions of simultaneous transactions is a different category of problem.</p>
+      <ul class="commit-list">
+        <li data-i18n="s10_c1">Ongoing research and transparency about the failure modes of agentic commerce</li>
+        <li data-i18n="s10_c2">Publishing what we learn, even when it reflects poorly on our own capabilities</li>
+        <li data-i18n="s10_c3">Building auditable systems — agents whose reasoning can be inspected, not just their outputs</li>
+        <li data-i18n="s10_c4">Advocating for industry standards that require agent transparency in commercial settings</li>
+        <li data-i18n="s10_c5">Refusing to build capabilities we believe would cause net harm, regardless of competitive pressure</li>
+      </ul>
+      <p class="doc-p" data-i18n="s10_p2">We believe the companies building AI for commerce have a responsibility to set standards, not wait for regulation. We intend to be those companies. And we accept that this commitment will sometimes cost us in the short term. That is the price of the long game.</p>
+    </div>
+
+    <!-- CLOSING -->
+    <div class="doc-closing">
+      <p class="doc-closing-korean">치원</p>
+      <p class="doc-closing-text" data-i18n="closing_text">Their rules: Never let anyone within your reach go without. Give back more than you take. Don't exploit another person's misfortune for profit. We chose this name because we believe the principles that allowed a family to sustain integrity across 400 years are exactly the principles the agentic economy needs right now.</p>
+      <a href="chiwon-landing.html" class="doc-closing-link" data-i18n="closing_link">Join the Waitlist</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="footer-logo">chiwon<span>.ai</span></span>
+    <span class="footer-note" data-i18n="footer_note">치원 · 致遠 · Building for the long run</span>
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        nav_back: "← Back",
+        eyebrow: "Our Philosophy",
+        title: "The chiwon.ai Constitution",
+        subtitle: "치원 (Chiwon): far-reaching wisdom. Named for the 최부자 (Choi Buja) family of Gyeongju, Korea — who sustained prosperity, integrity, and community stewardship for over 400 years without exploitation.",
+        s1_title: "Preamble",
+        s1_p1: "AI is transforming how commerce works. Agents are beginning to act autonomously in sales conversations, procurement decisions, contract negotiations, and relationship management — on behalf of companies and individuals alike. This shift is accelerating. And the stakes are high.",
+        s1_p2: "Done well, agentic AI in commerce can level the playing field — giving every professional the context and intelligence of the world's best, making buying experiences genuinely more efficient and honest, and creating value that flows to both sides of every transaction.",
+        s1_p3: "Done poorly, it becomes a tool of extraction. AI that manipulates rather than informs. That optimizes for conversion at the expense of trust. That treats the buyer as a target rather than a partner.",
+        s1_p4: "We founded chiwon.ai because we believe the companies that will endure are the ones that refuse the extractive path — not because it's legally safer, but because it's wrong, and because sustainable prosperity has never been built on exploitation.",
+        s1_p5: "The 최부자 family governed 400 years of wealth by a simple ethic: never take from those who have nothing; give back to your community before you take for yourself; do business in a way you'd be proud to explain to anyone. That is the philosophical foundation of everything we build.",
+        s2_title: "On Agentic AI in Commerce",
+        s2_p1: "Agentic AI — AI that takes actions autonomously, not just answers questions — represents a fundamental shift in how commercial relationships work. What matters is the orientation of the agent: <strong>whose interests is it actually optimizing for, and how?</strong>",
+        s2_sub1: "1. Agents in commerce must be transparent about their nature.",
+        s2_p2: "An AI acting on behalf of a company in a commercial conversation should not deceive the other party about what it is. We build agents that are honest about their role. Manipulation dressed as intelligence is still manipulation.",
+        s2_sub2: "2. Optimization for conversion is not the same as optimization for value.",
+        s2_p3: "An agent that closes deals by overwhelming a buyer's judgment, exploiting cognitive biases, or hiding relevant information has not created value. It has extracted it. We build agents that optimize for mutual value creation — deals where both parties win, and where the relationship survives the transaction.",
+        s2_sub3: "3. The agent serves the human, not the other way around.",
+        s2_p4: "We are building intelligence tools, not autonomy replacements. Our agents surface context, flag risks, and prepare humans to show up better. They do not replace human judgment in consequential decisions. They enhance it.",
+        s3_title: "On the Role of AI in Relationships",
+        s3_p1: "Commerce runs on relationships. Relationships run on trust. Trust is built through consistency, honesty, and genuine care for the other person's outcome.",
+        s3_p2: "AI that mimics relationship cues without the underlying authenticity is a counterfeit. It may produce short-term results. It will corrode trust at the systems level — making buyers more guarded, making selling harder, making the entire commercial ecosystem more adversarial.",
+        s3_p3: "We build AI that helps humans be more authentically themselves in their relationships — more prepared, more present, more capable of genuinely caring because they're not drowning in administrative noise. The goal is never to automate the relationship. It's to protect the human space where real relationships form.",
+        s4_title: "On Data, Privacy, and Power Asymmetry",
+        s4_p1: "Agentic AI in commerce creates enormous data asymmetry. Companies deploying AI agents have access to patterns across thousands of interactions that individual buyers cannot see or respond to. This asymmetry is real, and we take it seriously.",
+        s4_c1: "Never selling or sharing customer data with third parties",
+        s4_c2: "Building models that explain their reasoning, not just their outputs",
+        s4_c3: "Giving customers full visibility into what signals our agents are using",
+        s4_c4: "Designing features that would pass the \"newspaper test\" — would we be comfortable if the full mechanism were publicly explained?",
+        s5_title: "On Bilateral Intelligence",
+        s5_p1: "Most AI built for commerce is trained on one side of the transaction. Seller data. Conversion patterns. Win/loss signals from the vendor's perspective. The result is a model that gets very good at closing — and knows almost nothing about whether it should.",
+        s5_p2: "We reject this architecture at the foundational level. chiwon.ai trains on buyer and seller signal simultaneously, from day one. The feedback loop from procurement teams — what felt manipulative, what felt honest, where trust was built, where it broke — is not supplementary data. It is half the training signal.",
+        s5_pl: "Core Principle",
+        s5_pt: "A model trained only on selling will always optimize for selling. If we want agents that create mutual value, we must train them on mutual value signals. There is no shortcut.",
+        s5_p3: "This commitment has a cost. It makes the data problem harder. We accept that cost because the alternative — a system trained to optimize commerce from only one side — is precisely what we exist to prevent.",
+        s6_title: "On Agent-to-Agent Commerce",
+        s6_p1: "We are approaching a threshold most people have not fully reckoned with: the point at which AI agents are not tools that assist human commerce, but participants in it. When your agent negotiates with my agent — when no human is present, when decisions are made at machine speed across millions of transactions simultaneously — the question of whose interests each agent is optimizing for becomes existential.",
+        s6_sub1: "The protocol layer must be built before it is needed, not after.",
+        s6_p2: "By the time agent-to-agent commerce is ubiquitous, the extractive patterns will already be baked in. The time to set the standard is now, while the norms are still being written. We intend to write them.",
+        s6_sub2: "An agent's principal is the human it represents — always.",
+        s6_p3: "When chiwon.ai's protocol governs a transaction, the agent on each side is accountable to the human who deployed it. Not to the platform. Not to a conversion metric. The human principal's interests are the agent's purpose. This sounds obvious. It is not the default.",
+        s6_sub3: "Speed without integrity is just faster extraction.",
+        s6_p4: "The promise of agent-to-agent commerce is efficiency. But efficiency in service of extractive goals is not a feature — it is an accelerant. We build for speed in service of mutual value.",
+        s7_title: "On Sustainable Commerce",
+        s7_p1: "The 최부자 family had a principle: don't accumulate more than you need. When a merchant grew too wealthy too fast, they gave back. Not because it was required — because they understood that prosperity extracted from community eventually destroys itself.",
+        s7_c1: "We price to reflect value created, not value captured",
+        s7_c2: "We turn away customers where we aren't the right fit rather than close deals that set us up to fail",
+        s7_c3: "We share knowledge publicly — writing, research, frameworks — because a rising tide serves us too",
+        s7_c4: "We measure success over years, not quarters",
+        s8_title: "What We Are Not Building",
+        s8_label: "We will never build",
+        s8_n1: "AI that replaces human relationship judgment in high-stakes decisions",
+        s8_n2: "Agents that deceive counterparties about their nature or intent",
+        s8_n3: "Features that exploit psychological vulnerabilities to drive conversion",
+        s8_n4: "A platform that extracts value from users' data without clear consent and benefit",
+        s8_n5: "A protocol that optimizes for transaction volume at the expense of transaction integrity",
+        s9_title: "How We Make Decisions",
+        s9_v1: "We make decisions by asking what we'll think of them in 20 years, not 20 days. Short-term pressure is not a reason to compromise long-term integrity.",
+        s9_l2: "Mutual value creation",
+        s9_v2: "Every feature, every deal, every partnership should create value for both parties. We are not in the zero-sum business.",
+        s9_l3: "Honesty before comfort",
+        s9_v3: "We tell customers when our product isn't right for them. We tell each other when something isn't working. Honesty is a practice, not a posture.",
+        s9_l4: "Integrity compounds",
+        s9_v4: "The 최부자 family understood that reputation built slowly is more valuable than wealth built fast. We are building a reputation for being the company that did this right.",
+        s10_title: "On Safety in Agentic Commerce",
+        s10_p1: "We take seriously that autonomous agents acting in commercial contexts can cause harm — to buyers, to market dynamics, and to the humans whose livelihoods depend on relationships working with integrity. Manipulation at human speed is bad. Manipulation at machine speed across millions of simultaneous transactions is a different category of problem.",
+        s10_c1: "Ongoing research and transparency about the failure modes of agentic commerce",
+        s10_c2: "Publishing what we learn, even when it reflects poorly on our own capabilities",
+        s10_c3: "Building auditable systems — agents whose reasoning can be inspected, not just their outputs",
+        s10_c4: "Advocating for industry standards that require agent transparency in commercial settings",
+        s10_c5: "Refusing to build capabilities we believe would cause net harm, regardless of competitive pressure",
+        s10_p2: "We believe the companies building AI for commerce have a responsibility to set standards, not wait for regulation. We intend to be those companies. And we accept that this commitment will sometimes cost us in the short term. That is the price of the long game.",
+        closing_text: "Their rules: Never let anyone within your reach go without. Give back more than you take. Don't exploit another person's misfortune for profit. We chose this name because we believe the principles that allowed a family to sustain integrity across 400 years are exactly the principles the agentic economy needs right now.",
+        closing_link: "Join the Waitlist",
+        footer_note: "치원 · 致遠 · Building for the long run"
+      },
+      ko: {
+        nav_back: "← 돌아가기",
+        eyebrow: "우리의 철학",
+        title: "chiwon.ai 헌법",
+        subtitle: "치원(Chiwon): 멀리 내다보는 지혜. 400년 이상 착취 없이 번영, 청렴, 공동체 정신을 지켜온 경주 최부자 가문의 이름에서 따왔습니다.",
+        s1_title: "전문",
+        s1_p1: "AI가 상거래 방식을 변화시키고 있습니다. 에이전트들이 기업과 개인을 대신하여 영업 대화, 구매 결정, 계약 협상, 관계 관리에서 자율적으로 행동하기 시작했습니다. 이 변화는 가속화되고 있으며, 그 결과는 매우 중요합니다.",
+        s1_p2: "잘 구현되면, 상거래에서의 에이전틱 AI는 경쟁의 장을 평평하게 만들 수 있습니다 — 모든 전문가에게 세계 최고의 맥락과 지능을 제공하고, 구매 경험을 진정으로 효율적이고 정직하게 만들며, 모든 거래의 양측에 가치를 흐르게 합니다.",
+        s1_p3: "잘못 구현되면, 착취의 도구가 됩니다. 정보를 제공하는 대신 조작하는 AI. 신뢰를 희생하면서 전환율을 최적화하는 AI. 구매자를 파트너가 아닌 표적으로 취급하는 AI.",
+        s1_p4: "우리가 chiwon.ai를 설립한 것은 오래 지속되는 기업들이 착취적인 길을 거부하는 기업들이라고 믿기 때문입니다 — 법적으로 더 안전해서가 아니라, 그것이 잘못되었기 때문이며, 지속 가능한 번영은 착취 위에 세워진 적이 없기 때문입니다.",
+        s1_p5: "최부자 가문은 간단한 윤리로 400년의 부를 지켜왔습니다: 아무것도 없는 자에게서 빼앗지 않고, 자신을 위해 취하기 전에 공동체에 돌려주며, 누구에게든 자랑스럽게 설명할 수 있는 방식으로 사업을 합니다. 우리는 그 유산을 진지하게 받아들입니다. 그것이 우리가 만드는 모든 것의 철학적 토대입니다.",
+        s2_title: "상거래에서의 에이전틱 AI에 대하여",
+        s2_p1: "에이전틱 AI — 질문에 답하는 것이 아니라 자율적으로 행동하는 AI — 는 상업적 관계가 작동하는 방식의 근본적인 변화를 나타냅니다. 중요한 것은 에이전트의 방향성입니다: <strong>실제로 누구의 이익을 최적화하고 있으며, 어떻게?</strong>",
+        s2_sub1: "1. 상거래의 에이전트는 자신의 본질에 대해 투명해야 합니다.",
+        s2_p2: "상업적 대화에서 기업을 대신하여 행동하는 AI는 상대방에게 자신이 무엇인지 속여서는 안 됩니다. 우리는 자신의 역할에 정직한 에이전트를 만듭니다. 지능으로 포장된 조작은 여전히 조작입니다.",
+        s2_sub2: "2. 전환 최적화는 가치 최적화와 같지 않습니다.",
+        s2_p3: "구매자의 판단을 압도하거나, 인지적 편향을 악용하거나, 관련 정보를 숨김으로써 거래를 성사시키는 에이전트는 가치를 창출한 것이 아닙니다. 가치를 추출한 것입니다. 우리는 상호 가치 창출을 최적화하는 에이전트를 만듭니다.",
+        s2_sub3: "3. 에이전트는 인간을 위해 존재합니다, 그 반대가 아닙니다.",
+        s2_p4: "우리는 자율성 대체가 아닌 지능 도구를 만들고 있습니다. 우리의 에이전트는 맥락을 표면화하고, 위험을 표시하며, 인간이 더 잘 나타날 수 있도록 준비시킵니다. 중요한 결정에서 인간의 판단을 대체하지 않습니다. 향상시킵니다.",
+        s3_title: "관계에서 AI의 역할에 대하여",
+        s3_p1: "상거래는 관계 위에 운영됩니다. 관계는 신뢰 위에 운영됩니다. 신뢰는 일관성, 정직함, 상대방의 결과에 대한 진정한 배려를 통해 구축됩니다.",
+        s3_p2: "기저의 진정성 없이 관계 신호를 모방하는 AI는 위조품입니다. 단기적인 결과를 낼 수 있습니다. 시스템 수준에서 신뢰를 부식시킬 것입니다 — 구매자를 더 방어적으로 만들고, 판매를 더 어렵게 만들며, 전체 상업 생태계를 더 대립적으로 만듭니다.",
+        s3_p3: "우리는 인간이 관계에서 더 진정성 있는 자신이 될 수 있도록 돕는 AI를 만듭니다 — 행정적 소음에 빠지지 않아도 되기 때문에 더 준비되고, 더 현재에 있으며, 진정으로 배려할 수 있는. 목표는 관계를 자동화하는 것이 아닙니다. 진정한 관계가 형성되는 인간적 공간을 보호하는 것입니다.",
+        s4_title: "데이터, 프라이버시, 권력 비대칭에 대하여",
+        s4_p1: "상거래에서의 에이전틱 AI는 엄청난 데이터 비대칭을 만듭니다. AI 에이전트를 배포하는 기업들은 개별 구매자들이 볼 수 없는 수천 개의 상호작용 패턴에 접근할 수 있습니다. 이 비대칭은 현실이며, 우리는 그것을 진지하게 받아들입니다.",
+        s4_c1: "고객 데이터를 제3자에게 판매하거나 공유하지 않음",
+        s4_c2: "출력값만이 아닌 추론 과정을 설명하는 모델 구축",
+        s4_c3: "에이전트가 사용하는 신호에 대한 고객의 완전한 가시성 제공",
+        s4_c4: "전체 메커니즘이 공개적으로 설명되어도 편안할 수 있는 기능 설계",
+        s5_title: "양방향 인텔리전스에 대하여",
+        s5_p1: "상거래를 위해 구축된 대부분의 AI는 거래의 한쪽 면에서만 훈련됩니다. 판매자 데이터. 전환 패턴. 판매자 관점의 승패 신호. 결과는 마감에는 매우 능숙하지만 — 해야 하는지에 대해서는 거의 알지 못하는 모델입니다.",
+        s5_p2: "우리는 이 아키텍처를 근본적인 수준에서 거부합니다. chiwon.ai는 처음부터 구매자와 판매자 신호를 동시에 훈련합니다. 구매 팀의 피드백 루프 — 무엇이 조작적으로 느껴졌는지, 무엇이 정직하게 느껴졌는지 — 는 보조 데이터가 아닙니다. 훈련 신호의 절반입니다.",
+        s5_pl: "핵심 원칙",
+        s5_pt: "판매에만 훈련된 모델은 항상 판매를 최적화할 것입니다. 상호 가치를 창출하는 에이전트를 원한다면, 상호 가치 신호로 훈련해야 합니다. 지름길은 없습니다.",
+        s5_p3: "이 약속에는 비용이 있습니다. 데이터 문제를 더 어렵게 만듭니다. 우리는 그 비용을 받아들입니다. 왜냐하면 대안 — 한쪽에서만 상거래를 최적화하도록 훈련된 시스템 — 이 바로 우리가 예방하려는 것이기 때문입니다.",
+        s6_title: "에이전트 간 상거래에 대하여",
+        s6_p1: "우리는 대부분의 사람들이 완전히 인식하지 못한 임계점에 접근하고 있습니다: AI 에이전트들이 인간 상거래를 돕는 도구가 아니라, 참여자가 되는 시점. 당신의 에이전트가 내 에이전트와 협상할 때 — 아무도 없을 때, 수백만 건의 거래가 동시에 기계 속도로 결정될 때 — 각 에이전트가 누구의 이익을 최적화하고 있는지의 문제는 실존적이 됩니다.",
+        s6_sub1: "프로토콜 레이어는 필요하기 전에 구축되어야 합니다, 후에가 아니라.",
+        s6_p2: "에이전트 간 상거래가 보편화될 때쯤이면, 착취적 패턴이 이미 내재화될 것입니다. 기준을 설정할 시간은 지금, 규범이 아직 작성되고 있는 동안입니다. 우리는 그것을 작성하려 합니다.",
+        s6_sub2: "에이전트의 주인은 항상 그것이 대표하는 인간입니다.",
+        s6_p3: "chiwon.ai의 프로토콜이 거래를 지배할 때, 각 측의 에이전트는 그것을 배포한 인간에게 책임이 있습니다. 플랫폼이 아니라. 전환 지표가 아니라. 인간 주인의 이익이 에이전트의 목적입니다. 당연하게 들립니다. 그것이 기본값이 아닙니다.",
+        s6_sub3: "무결성 없는 속도는 더 빠른 착취일 뿐입니다.",
+        s6_p4: "에이전트 간 상거래의 약속은 효율성입니다. 그러나 착취적 목표에 봉사하는 효율성은 기능이 아닙니다 — 가속제입니다. 우리는 상호 가치에 봉사하는 속도를 위해 만듭니다.",
+        s7_title: "지속 가능한 상거래에 대하여",
+        s7_p1: "최부자 가문에는 원칙이 있었습니다: 필요 이상으로 축적하지 마라. 상인이 너무 빨리 너무 부유해지면, 그들은 돌려줬습니다. 요구되었기 때문이 아니라 — 공동체에서 추출된 번영은 결국 자멸한다는 것을 이해했기 때문입니다.",
+        s7_c1: "창출된 가치를 반영하여 가격을 책정합니다, 포착된 가치가 아닌",
+        s7_c2: "적합하지 않은 고객은 거절합니다, 실패로 이어질 거래를 성사시키기보다",
+        s7_c3: "공개적으로 지식을 공유합니다 — 글쓰기, 연구, 프레임워크 — 우리도 이익을 얻기 때문에",
+        s7_c4: "분기가 아닌 연도로 성공을 측정합니다",
+        s8_title: "우리가 만들지 않을 것",
+        s8_label: "우리는 절대 만들지 않겠습니다",
+        s8_n1: "고위험 결정에서 인간 관계 판단을 대체하는 AI",
+        s8_n2: "상대방을 본질이나 의도에 대해 속이는 에이전트",
+        s8_n3: "전환을 유도하기 위해 심리적 취약점을 악용하는 기능",
+        s8_n4: "명확한 동의와 혜택 없이 사용자 데이터에서 가치를 추출하는 플랫폼",
+        s8_n5: "거래 무결성을 희생하면서 거래량을 최적화하는 프로토콜",
+        s9_title: "우리가 결정하는 방법",
+        s9_v1: "우리는 20일이 아닌 20년 후에 어떻게 생각할지 물어봄으로써 결정합니다. 단기적 압박은 장기적 무결성을 타협할 이유가 되지 않습니다.",
+        s9_l2: "상호 가치 창출",
+        s9_v2: "모든 기능, 모든 거래, 모든 파트너십은 양측에 가치를 창출해야 합니다. 우리는 제로섬 사업이 아닙니다.",
+        s9_l3: "편안함보다 정직",
+        s9_v3: "우리 제품이 맞지 않을 때 고객에게 말합니다. 무언가가 작동하지 않을 때 서로에게 말합니다. 정직은 자세가 아닌 실천입니다.",
+        s9_l4: "무결성은 복리로 쌓입니다",
+        s9_v4: "최부자 가문은 천천히 쌓인 명성이 빠르게 쌓인 부보다 더 가치 있다는 것을 이해했습니다. 우리는 이것을 올바르게 한 기업으로 명성을 쌓고 있습니다.",
+        s10_title: "에이전틱 상거래의 안전에 대하여",
+        s10_p1: "우리는 상업적 맥락에서 행동하는 자율 에이전트가 구매자, 시장 역학, 관계가 무결성 있게 작동하는 데 생계가 달린 인간들에게 해를 끼칠 수 있다는 것을 진지하게 받아들입니다. 인간 속도의 조작은 나쁩니다. 수백만 건의 동시 거래에 걸친 기계 속도의 조작은 다른 범주의 문제입니다.",
+        s10_c1: "에이전틱 상거래의 실패 모드에 대한 지속적인 연구와 투명성",
+        s10_c2: "우리 자신의 역량을 나쁘게 반영하더라도 배운 것을 공개",
+        s10_c3: "감사 가능한 시스템 구축 — 출력값만이 아닌 추론을 검사할 수 있는 에이전트",
+        s10_c4: "상업적 환경에서 에이전트 투명성을 요구하는 업계 표준 지지",
+        s10_c5: "경쟁 압박에 관계없이 순해를 끼친다고 믿는 역량 구축 거부",
+        s10_p2: "상거래를 위한 AI를 구축하는 기업들이 규제를 기다리는 것이 아니라 기준을 설정할 책임이 있다고 믿습니다. 우리는 그런 기업이 되려 합니다. 그리고 이 약속이 단기적으로 비용을 초래할 것임을 받아들입니다. 그것이 장기전의 대가입니다.",
+        closing_text: "그들의 규칙: 당신의 손이 닿는 곳에 아무도 굶지 않게 하라. 취하는 것보다 더 많이 돌려줘라. 다른 사람의 불행을 이익으로 악용하지 마라. 우리가 이 이름을 선택한 것은 400년 동안 무결성을 지속할 수 있게 한 원칙이 바로 지금 에이전틱 경제에 필요한 원칙이라고 믿기 때문입니다.",
+        closing_link: "대기자 명단 등록",
+        footer_note: "치원 · 致遠 · 오래도록 세우는 것"
+      },
+      es: {
+        nav_back: "← Volver",
+        eyebrow: "Nuestra Filosofía",
+        title: "La Constitución de chiwon.ai",
+        subtitle: "치원 (Chiwon): sabiduría de largo alcance. Nombrado por la familia 최부자 (Choi Buja) de Gyeongju, Corea — que mantuvo prosperidad, integridad y administración comunitaria durante más de 400 años sin explotación.",
+        s1_title: "Preámbulo",
+        s1_p1: "La IA está transformando cómo funciona el comercio. Los agentes están comenzando a actuar de forma autónoma en conversaciones de ventas, decisiones de adquisición, negociaciones de contratos y gestión de relaciones — en nombre de empresas e individuos por igual. Este cambio se está acelerando. Y las apuestas son altas.",
+        s1_p2: "Bien implementada, la IA agéntica en el comercio puede nivelar el campo de juego — dando a cada profesional el contexto y la inteligencia de los mejores del mundo, haciendo las experiencias de compra genuinamente más eficientes y honestas, y creando valor que fluye a ambos lados de cada transacción.",
+        s1_p3: "Mal implementada, se convierte en una herramienta de extracción. IA que manipula en lugar de informar. Que optimiza la conversión a expensas de la confianza. Que trata al comprador como un objetivo en lugar de un socio.",
+        s1_p4: "Fundamos chiwon.ai porque creemos que las empresas que perdurarán son las que rechazan el camino extractivo — no porque sea legalmente más seguro, sino porque está mal, y porque la prosperidad sostenible nunca se ha construido sobre la explotación.",
+        s1_p5: "La familia 최부자 gobernó 400 años de riqueza con una ética simple: nunca tomes de los que no tienen nada; devuelve a tu comunidad antes de tomar para ti mismo; haz negocios de una manera de la que te enorgullecerías explicar a cualquiera. Tomamos esa herencia en serio. Es el fundamento filosófico de todo lo que construimos.",
+        s2_title: "Sobre la IA Agéntica en el Comercio",
+        s2_p1: "La IA agéntica — IA que toma acciones de forma autónoma, no solo responde preguntas — representa un cambio fundamental en cómo funcionan las relaciones comerciales. Lo que importa es la orientación del agente: <strong>¿los intereses de quién está optimizando realmente, y cómo?</strong>",
+        s2_sub1: "1. Los agentes en el comercio deben ser transparentes sobre su naturaleza.",
+        s2_p2: "Una IA que actúa en nombre de una empresa en una conversación comercial no debe engañar a la otra parte sobre lo que es. Construimos agentes que son honestos sobre su rol. La manipulación vestida de inteligencia sigue siendo manipulación.",
+        s2_sub2: "2. Optimizar la conversión no es lo mismo que optimizar el valor.",
+        s2_p3: "Un agente que cierra tratos abrumando el juicio del comprador, explotando sesgos cognitivos u ocultando información relevante no ha creado valor. Lo ha extraído. Construimos agentes que optimizan la creación de valor mutuo — acuerdos donde ambas partes ganan, y donde la relación sobrevive a la transacción.",
+        s2_sub3: "3. El agente sirve al humano, no al revés.",
+        s2_p4: "Estamos construyendo herramientas de inteligencia, no reemplazos de autonomía. Nuestros agentes sacan contexto a la superficie, señalan riesgos y preparan a los humanos para estar mejor. No reemplazan el juicio humano en decisiones consecuentes. Lo mejoran.",
+        s3_title: "Sobre el Rol de la IA en las Relaciones",
+        s3_p1: "El comercio funciona con relaciones. Las relaciones funcionan con confianza. La confianza se construye a través de la consistencia, la honestidad y el cuidado genuino por el resultado de la otra persona.",
+        s3_p2: "La IA que imita señales de relación sin la autenticidad subyacente es una falsificación. Puede producir resultados a corto plazo. Corroerá la confianza a nivel sistémico — haciendo a los compradores más defensivos, haciendo las ventas más difíciles, haciendo todo el ecosistema comercial más adversarial.",
+        s3_p3: "Construimos IA que ayuda a los humanos a ser más auténticamente ellos mismos en sus relaciones — más preparados, más presentes, más capaces de cuidar genuinamente porque no están ahogándose en ruido administrativo. El objetivo nunca es automatizar la relación. Es proteger el espacio humano donde se forman las relaciones reales.",
+        s4_title: "Sobre Datos, Privacidad y Asimetría de Poder",
+        s4_p1: "La IA agéntica en el comercio crea una enorme asimetría de datos. Las empresas que despliegan agentes de IA tienen acceso a patrones en miles de interacciones que los compradores individuales no pueden ver ni responder. Esta asimetría es real, y la tomamos en serio.",
+        s4_c1: "Nunca vender ni compartir datos de clientes con terceros",
+        s4_c2: "Construir modelos que expliquen su razonamiento, no solo sus resultados",
+        s4_c3: "Dar a los clientes plena visibilidad sobre qué señales usan nuestros agentes",
+        s4_c4: "Diseñar funciones que pasarían la 'prueba del periódico' — ¿estaríamos cómodos si el mecanismo completo se explicara públicamente?",
+        s5_title: "Sobre la Inteligencia Bilateral",
+        s5_p1: "La mayoría de la IA construida para el comercio se entrena en un lado de la transacción. Datos del vendedor. Patrones de conversión. Señales de ganar/perder desde la perspectiva del proveedor. El resultado es un modelo muy bueno para cerrar — y que casi no sabe si debería.",
+        s5_p2: "Rechazamos esta arquitectura a nivel fundamental. chiwon.ai entrena con señales de comprador y vendedor simultáneamente, desde el primer día. El bucle de retroalimentación de los equipos de adquisición — qué se sintió manipulador, qué se sintió honesto, dónde se construyó la confianza, dónde se rompió — no son datos suplementarios. Es la mitad de la señal de entrenamiento.",
+        s5_pl: "Principio Central",
+        s5_pt: "Un modelo entrenado solo en ventas siempre optimizará para ventas. Si queremos agentes que creen valor mutuo, debemos entrenarlos con señales de valor mutuo. No hay atajos.",
+        s5_p3: "Este compromiso tiene un costo. Hace el problema de datos más difícil. Aceptamos ese costo porque la alternativa — un sistema entrenado para optimizar el comercio desde un solo lado — es precisamente lo que existimos para prevenir.",
+        s6_title: "Sobre el Comercio Agente a Agente",
+        s6_p1: "Nos estamos acercando a un umbral que la mayoría de las personas no han comprendido completamente: el punto en que los agentes de IA no son herramientas que asisten el comercio humano, sino participantes en él. Cuando tu agente negocia con mi agente — cuando no hay ningún humano presente, cuando las decisiones se toman a velocidad máquina en millones de transacciones simultáneamente — la pregunta de los intereses de quién está optimizando cada agente se vuelve existencial.",
+        s6_sub1: "La capa de protocolo debe construirse antes de que se necesite, no después.",
+        s6_p2: "Para cuando el comercio agente a agente sea omnipresente, los patrones extractivos ya estarán integrados. El momento de establecer el estándar es ahora, mientras las normas todavía se están escribiendo. Pretendemos escribirlas.",
+        s6_sub2: "El principal de un agente es siempre el humano que representa.",
+        s6_p3: "Cuando el protocolo de chiwon.ai rige una transacción, el agente de cada lado es responsable ante el humano que lo desplegó. No a la plataforma. No a una métrica de conversión. Los intereses del principal humano son el propósito del agente. Esto suena obvio. No es el valor predeterminado.",
+        s6_sub3: "La velocidad sin integridad es solo extracción más rápida.",
+        s6_p4: "La promesa del comercio agente a agente es la eficiencia. Pero la eficiencia al servicio de objetivos extractivos no es una característica — es un acelerante. Construimos para velocidad al servicio del valor mutuo.",
+        s7_title: "Sobre el Comercio Sostenible",
+        s7_p1: "La familia 최부자 tenía un principio: no acumules más de lo que necesitas. Cuando un comerciante se enriquecía demasiado rápido, devolvía. No porque fuera requerido — sino porque entendían que la prosperidad extraída de la comunidad eventualmente se destruye a sí misma.",
+        s7_c1: "Fijamos precios para reflejar el valor creado, no el valor capturado",
+        s7_c2: "Rechazamos clientes donde no somos la opción correcta en lugar de cerrar tratos que nos preparan para fallar",
+        s7_c3: "Compartimos conocimiento públicamente — escritura, investigación, marcos — porque una marea alta también nos sirve",
+        s7_c4: "Medimos el éxito en años, no en trimestres",
+        s8_title: "Lo Que No Estamos Construyendo",
+        s8_label: "Nunca construiremos",
+        s8_n1: "IA que reemplaza el juicio humano en relaciones de alta importancia",
+        s8_n2: "Agentes que engañan a las contrapartes sobre su naturaleza o intención",
+        s8_n3: "Funciones que explotan vulnerabilidades psicológicas para impulsar la conversión",
+        s8_n4: "Una plataforma que extrae valor de los datos de usuarios sin consentimiento claro y beneficio",
+        s8_n5: "Un protocolo que optimiza el volumen de transacciones a expensas de la integridad de las transacciones",
+        s9_title: "Cómo Tomamos Decisiones",
+        s9_v1: "Tomamos decisiones preguntándonos qué pensaremos de ellas en 20 años, no en 20 días. La presión a corto plazo no es razón para comprometer la integridad a largo plazo.",
+        s9_l2: "Creación de valor mutuo",
+        s9_v2: "Cada función, cada trato, cada asociación debe crear valor para ambas partes. No estamos en el negocio de suma cero.",
+        s9_l3: "Honestidad antes que comodidad",
+        s9_v3: "Decimos a los clientes cuando nuestro producto no es adecuado para ellos. Nos decimos cuando algo no está funcionando. La honestidad es una práctica, no una postura.",
+        s9_l4: "La integridad se acumula",
+        s9_v4: "La familia 최부자 entendió que la reputación construida lentamente es más valiosa que la riqueza construida rápido. Estamos construyendo una reputación por ser la empresa que hizo esto bien.",
+        s10_title: "Sobre la Seguridad en el Comercio Agéntico",
+        s10_p1: "Tomamos en serio que los agentes autónomos que actúan en contextos comerciales pueden causar daño — a compradores, a la dinámica del mercado, y a los humanos cuyo sustento depende de que las relaciones funcionen con integridad. La manipulación a velocidad humana es mala. La manipulación a velocidad máquina en millones de transacciones simultáneas es una categoría diferente de problema.",
+        s10_c1: "Investigación y transparencia continuas sobre los modos de falla del comercio agéntico",
+        s10_c2: "Publicar lo que aprendemos, incluso cuando refleja mal nuestras propias capacidades",
+        s10_c3: "Construir sistemas auditables — agentes cuyo razonamiento puede ser inspeccionado, no solo sus resultados",
+        s10_c4: "Abogar por estándares de la industria que requieran transparencia de agentes en entornos comerciales",
+        s10_c5: "Negarnos a construir capacidades que creemos causarían daño neto, independientemente de la presión competitiva",
+        s10_p2: "Creemos que las empresas que construyen IA para el comercio tienen la responsabilidad de establecer estándares, no de esperar la regulación. Pretendemos ser esas empresas. Y aceptamos que este compromiso a veces nos costará en el corto plazo. Ese es el precio del juego largo.",
+        closing_text: "Sus reglas: Nunca dejes que nadie dentro de tu alcance pase necesidad. Devuelve más de lo que tomas. No explotes la desgracia de otra persona para obtener ganancias. Elegimos este nombre porque creemos que los principios que permitieron a una familia mantener la integridad durante 400 años son exactamente los principios que la economía agéntica necesita ahora mismo.",
+        closing_link: "Unirse a la Lista de Espera",
+        footer_note: "치원 · 致遠 · Construyendo para el largo plazo"
+      }
+    };
+
+    function setLang(lang, e) {
+      const t = i18n[lang];
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      e.target.classList.add('active');
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.body.style.fontFamily = lang === 'ko'
+        ? "'Noto Serif KR', serif"
+        : "'DM Sans', sans-serif";
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chiwon.ai</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #0f0f0f;
+      --ink-light: #6b6b6b;
+      --ink-faint: #c8c8c8;
+      --paper: #f7f5f0;
+      --paper-white: #ffffff;
+      --accent: #c8472b;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 3rem;
+      background: rgba(247, 245, 240, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.3s;
+    }
+    nav.scrolled { border-color: var(--ink-faint); }
+    .nav-left { display: flex; align-items: center; gap: 2rem; }
+    .nav-logo {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .lang-switcher { display: flex; }
+    .lang-btn {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      background: none;
+      border: 1px solid var(--ink-faint);
+      color: var(--ink-light);
+      padding: 0.3rem 0.65rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: 'DM Sans', sans-serif;
+    }
+    .lang-btn:first-child { border-radius: 2px 0 0 2px; }
+    .lang-btn:last-child { border-radius: 0 2px 2px 0; }
+    .lang-btn + .lang-btn { border-left: none; }
+    .lang-btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .lang-btn:not(.active):hover { border-color: var(--ink); color: var(--ink); }
+    .nav-cta {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .nav-cta:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 3rem 4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 0.6s ease forwards 0.1s;
+    }
+    .hero-headline {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(2.8rem, 6vw, 5.2rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s ease forwards 0.2s;
+    }
+    .hero-headline em { font-style: italic; color: var(--accent); }
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--ink-light);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s ease forwards 0.35s;
+    }
+    .hero-form {
+      display: flex;
+      max-width: 460px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s ease forwards 0.5s;
+    }
+    .hero-form input {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      border: 1px solid var(--ink-faint);
+      border-right: none;
+      background: var(--paper-white);
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .hero-form input:focus { border-color: var(--ink); }
+    .hero-form input::placeholder { color: var(--ink-faint); }
+    .hero-form button {
+      padding: 0.9rem 1.6rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .hero-form button:hover { background: var(--accent); border-color: var(--accent); }
+    .hero-note {
+      margin-top: 1rem;
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      opacity: 0;
+      animation: fadeUp 0.6s ease forwards 0.65s;
+    }
+    .success-msg {
+      display: none;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+    }
+
+    .divider { width: 100%; height: 1px; background: var(--ink-faint); opacity: 0.4; }
+
+    /* SECTIONS */
+    .section { max-width: 900px; margin: 0 auto; padding: 6rem 3rem; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 3rem;
+    }
+    .problem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem 4rem; }
+    .problem-number {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.5rem;
+      color: var(--ink-faint);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .problem-text { font-size: 1rem; color: var(--ink-light); line-height: 1.7; }
+    .problem-text strong { color: var(--ink); font-weight: 500; }
+
+    /* THESIS */
+    .thesis { background: var(--ink); color: var(--paper); padding: 6rem 3rem; }
+    .thesis-inner { max-width: 900px; margin: 0 auto; }
+    .thesis-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 3rem;
+    }
+    .thesis-headline {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      max-width: 680px;
+      margin-bottom: 3rem;
+    }
+    .thesis-headline em { font-style: italic; color: var(--ink-faint); }
+    .thesis-points {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      border-top: 1px solid #2a2a2a;
+      padding-top: 3rem;
+    }
+    .thesis-point-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .thesis-point-text { font-size: 0.95rem; color: #a0a0a0; line-height: 1.65; }
+
+    /* PHILOSOPHY */
+    .philosophy { border-top: 1px solid var(--ink-faint); border-bottom: 1px solid var(--ink-faint); padding: 5rem 3rem; }
+    .philosophy-inner { max-width: 900px; margin: 0 auto; }
+    .philosophy-korean {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 3rem;
+      color: var(--ink-faint);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .phil-subtitle {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-top: 0.5rem;
+    }
+    .yookhun-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 3rem;
+    }
+    .yookhun-korean {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 1.05rem;
+      color: var(--ink-faint);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+    .yookhun-principle {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .yookhun-desc { font-size: 0.9rem; color: var(--ink-light); line-height: 1.65; }
+    .philosophy-closing {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--ink-faint);
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--ink-light);
+      max-width: 600px;
+    }
+
+    /* BOTTOM CTA */
+    .bottom-cta { max-width: 900px; margin: 0 auto; padding: 6rem 3rem; text-align: center; }
+    .bottom-cta h2 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+    }
+    .bottom-cta p { font-size: 1rem; color: var(--ink-light); margin-bottom: 2.5rem; }
+    .bottom-form { display: flex; max-width: 420px; margin: 0 auto; }
+    .bottom-form input {
+      flex: 1;
+      padding: 0.9rem 1.2rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      border: 1px solid var(--ink);
+      border-right: none;
+      background: transparent;
+      color: var(--ink);
+      outline: none;
+    }
+    .bottom-form input::placeholder { color: var(--ink-faint); }
+    .bottom-form button {
+      padding: 0.9rem 1.4rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 1px solid var(--ink);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .bottom-form button:hover { background: var(--accent); border-color: var(--accent); }
+    .bottom-success {
+      display: none;
+      font-family: 'Libre Baskerville', serif;
+      font-style: italic;
+      color: var(--accent);
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--ink-faint);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-logo { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; color: var(--ink); }
+    .footer-logo span { color: var(--accent); }
+    .footer-note { font-size: 0.78rem; color: var(--ink-faint); }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 700px) {
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-left { gap: 1rem; }
+      .hero { padding: 7rem 1.5rem 3rem; }
+      .section { padding: 4rem 1.5rem; }
+      .thesis { padding: 4rem 1.5rem; }
+      .philosophy { padding: 4rem 1.5rem; }
+      .problem-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .thesis-points { grid-template-columns: 1fr; }
+      .yookhun-grid { grid-template-columns: 1fr; }
+      .bottom-cta { padding: 4rem 1.5rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+      .hero-form { flex-direction: column; }
+      .hero-form input { border-right: 1px solid var(--ink-faint); border-bottom: none; }
+      .bottom-form { flex-direction: column; }
+      .bottom-form input { border-right: 1px solid var(--ink); border-bottom: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <div class="nav-left">
+      <a href="#" class="nav-logo">chiwon<span>.ai</span></a>
+      <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('ko')">한글</button>
+        <button class="lang-btn" onclick="setLang('es')">ES</button>
+      </div>
+    </div>
+    <div style="display:flex; align-items:center; gap:2rem;">
+      <a href="chiwon-constitution.html" class="nav-cta" style="border-bottom:none; color:var(--ink-light); font-size:0.78rem;" data-i18n="nav_philosophy">Our Philosophy</a>
+      <a href="#waitlist" class="nav-cta" data-i18n="nav_cta">Join Waitlist</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">Agentic Commerce Infrastructure</p>
+    <h1 class="hero-headline" data-i18n="hero_headline">The default is extraction.<br><em>We're changing it.</em></h1>
+    <p class="hero-sub" data-i18n="hero_sub">AI agents are about to conduct commerce at machine speed. The norms being set today will define how business gets done for decades. chiwon.ai is building ethics into the infrastructure — so the system works for humans instead of off them.</p>
+    <div class="hero-form" id="hero-form-wrap">
+      <input type="email" id="hero-email" placeholder="your@email.com" data-i18n-placeholder="email_placeholder" />
+      <button onclick="handleSignup('hero')" data-i18n="cta_btn">Join Waitlist</button>
+    </div>
+    <p class="hero-note" data-i18n="hero_note">No spam. We'll reach out when we're ready.</p>
+    <p class="success-msg" id="hero-success" data-i18n="success_msg">You're on the list. We'll be in touch.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="section">
+    <p class="section-label fade-in" data-i18n="problem_label">The Problem</p>
+    <div class="problem-grid">
+      <div class="fade-in">
+        <div class="problem-number">01</div>
+        <p class="problem-text" data-i18n="problem_1"><strong>Every AI built for enterprise sales is trained on seller data.</strong> So it optimizes for seller outcomes. The buyer never had a voice in the model.</p>
+      </div>
+      <div class="fade-in">
+        <div class="problem-number">02</div>
+        <p class="problem-text" data-i18n="problem_2"><strong>The major platforms give access to whoever pays most.</strong> OpenAI. Google. Meta. Recommendations aren't neutral — they're auctioned. That's the infrastructure commerce is being built on.</p>
+      </div>
+      <div class="fade-in">
+        <div class="problem-number">03</div>
+        <p class="problem-text" data-i18n="problem_3"><strong>Good companies get punished for doing the right thing.</strong> Competing against vendors who manipulate. Rebuilding trust with buyers already burned. The system rewards extraction — even honest sellers get pulled toward it.</p>
+      </div>
+      <div class="fade-in">
+        <div class="problem-number">04</div>
+        <p class="problem-text" data-i18n="problem_4"><strong>The norms are being set right now.</strong> AI agents will run this playbook across every commercial transaction at machine speed. Nobody is making sure the defaults are right.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="thesis">
+    <div class="thesis-inner">
+      <p class="thesis-label fade-in" data-i18n="thesis_label">Our Approach</p>
+      <h2 class="thesis-headline fade-in" data-i18n="thesis_headline">Bilateral intelligence — trained on <em>both</em> buyer and seller signal simultaneously.</h2>
+      <div class="thesis-points">
+        <div class="fade-in">
+          <p class="thesis-point-label" data-i18n="tp1_label">No New Platform</p>
+          <p class="thesis-point-text" data-i18n="tp1_text">Works inside existing workflows. No behavior change required from either side.</p>
+        </div>
+        <div class="fade-in">
+          <p class="thesis-point-label" data-i18n="tp2_label">Independent Record</p>
+          <p class="thesis-point-text" data-i18n="tp2_text">What was said, agreed, and delivered — verified by both parties. No more "you never told us that."</p>
+        </div>
+        <div class="fade-in">
+          <p class="thesis-point-label" data-i18n="tp3_label">Both Sides, Day One</p>
+          <p class="thesis-point-text" data-i18n="tp3_text">Buyer and seller signal from the start. The model can't be gamed by one side.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="philosophy">
+    <div class="philosophy-inner">
+      <div class="fade-in">
+        <p class="philosophy-korean">최부자 육훈</p>
+        <p class="phil-subtitle" data-i18n="phil_subtitle">The Six Principles of the Choi Clan · Gyeongju, Korea · 400 Years</p>
+      </div>
+      <style>
+        .yookhun-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+        .yookhun-item { padding: 1.5rem; border: 1px solid var(--ink-faint); position: relative; opacity: 0.5; transition: opacity 0.2s; }
+        .yookhun-item.highlighted { border-color: var(--accent); opacity: 1; background: rgba(200,71,43,0.03); }
+        .yookhun-item.highlighted::before { content: attr(data-foundation); position: absolute; top: -0.6rem; left: 1rem; background: var(--accent); color: white; font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.15rem 0.5rem; font-family: 'DM Sans', sans-serif; }
+        .yookhun-item:not(.highlighted) .yookhun-desc { display: none; }
+        @media (max-width: 700px) { .yookhun-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 480px) { .yookhun-grid { grid-template-columns: 1fr; } }
+      </style>
+
+      <div class="yookhun-grid">
+
+        <div class="yookhun-item fade-in">
+          <p class="yookhun-korean">진사 이상의 벼슬을<br>하지 말라</p>
+          <p class="yookhun-principle" data-i18n="y0_label">Don't seek power beyond your purpose</p>
+        </div>
+
+        <div class="yookhun-item highlighted fade-in" data-foundation="We build on this">
+          <p class="yookhun-korean">재산이 만석이 넘으면<br>사회에 환원하라</p>
+          <p class="yookhun-principle" data-i18n="y2_label">Give back when you have enough</p>
+          <p class="yookhun-desc" data-i18n="y2_desc">When you accumulate beyond your needs, return the surplus to the community. Value created in commerce should flow to both sides — not pool at the top.</p>
+        </div>
+
+        <div class="yookhun-item highlighted fade-in" data-foundation="We build on this">
+          <p class="yookhun-korean">흉년에 남의 논을<br>사지 말라</p>
+          <p class="yookhun-principle" data-i18n="y1_label">Do not exploit hardship</p>
+          <p class="yookhun-desc" data-i18n="y1_desc">Never buy land during a bad harvest. Do not extract from those already stretched. This is the principle we refused to violate — and why chiwon.ai exists.</p>
+        </div>
+
+        <div class="yookhun-item fade-in">
+          <p class="yookhun-korean">과객을 후하게<br>대접하라</p>
+          <p class="yookhun-principle" data-i18n="y4_label">Treat those who come to you with generosity</p>
+        </div>
+
+        <div class="yookhun-item highlighted fade-in" data-foundation="We build on this">
+          <p class="yookhun-korean">사방 백리 안에 굶어<br>죽는 사람이 없게 하라</p>
+          <p class="yookhun-principle" data-i18n="y3_label">No one in your reach goes without</p>
+          <p class="yookhun-desc" data-i18n="y3_desc">You are responsible for the people in your ecosystem — not just your own outcomes. Commerce built on this principle doesn't extract. It sustains.</p>
+        </div>
+
+        <div class="yookhun-item fade-in">
+          <p class="yookhun-korean">재물을 쌓아두지<br>말라</p>
+          <p class="yookhun-principle" data-i18n="y6_label">Do not hoard wealth</p>
+        </div>
+
+      </div>
+      <p class="philosophy-closing fade-in" data-i18n="phil_closing">These principles built 400 years of prosperity. Chung Ju-yung built Hyundai on the same instinct. We're wiring them into the commerce layer of the agentic economy.</p>
+    </div>
+  </div>
+
+  <section class="bottom-cta" id="waitlist">
+    <h2 class="fade-in" data-i18n="bottom_h2">Be first to know<br>when we launch.</h2>
+    <p class="fade-in" data-i18n="bottom_p">We're building in the open with a small group. If you're a buyer, seller, researcher, or investor who believes commerce should work for both sides — we want to hear from you.</p>
+    <div class="bottom-form fade-in">
+      <input type="email" id="bottom-email" placeholder="your@email.com" data-i18n-placeholder="email_placeholder" />
+      <button onclick="handleSignup('bottom')" data-i18n="cta_btn">Join Waitlist</button>
+    </div>
+    <p class="bottom-success" id="bottom-success" data-i18n="success_msg">You're on the list. We'll be in touch.</p>
+  </section>
+
+  <footer>
+    <span class="footer-logo">chiwon<span>.ai</span></span>
+    <span class="footer-note" data-i18n="footer_note">치원 · 致遠 · Building for the long run</span>
+  </footer>
+
+  <script>
+    const i18n = {
+      en: {
+        nav_cta: "Join Waitlist",
+        nav_philosophy: "Our Philosophy",
+        hero_eyebrow: "Agentic Commerce Infrastructure",
+        hero_headline: "The default is extraction.<br><em>We're changing it.</em>",
+        hero_sub: "AI agents are about to conduct commerce at machine speed. The norms being set today will define how business gets done for decades. chiwon.ai is building ethics into the infrastructure — so the system works for humans instead of off them.",
+        email_placeholder: "your@email.com",
+        cta_btn: "Join Waitlist",
+        hero_note: "No spam. We'll reach out when we're ready.",
+        success_msg: "You're on the list. We'll be in touch.",
+        problem_label: "The Problem",
+        problem_1: "<strong>Every AI built for enterprise sales is trained on seller data.</strong> So it optimizes for seller outcomes. The buyer never had a voice in the model.",
+        problem_2: "<strong>The major platforms give access to whoever pays most.</strong> OpenAI. Google. Meta. Recommendations aren't neutral — they're auctioned. That's the infrastructure commerce is being built on.",
+        problem_3: "<strong>Good companies get punished for doing the right thing.</strong> Competing against vendors who manipulate. Rebuilding trust with buyers already burned. The system rewards extraction — even honest sellers get pulled toward it.",
+        problem_4: "<strong>The norms are being set right now.</strong> AI agents will run this playbook across every commercial transaction at machine speed. Nobody is making sure the defaults are right.",
+        thesis_label: "Our Approach",
+        thesis_headline: "Bilateral intelligence — trained on <em>both</em> buyer and seller signal simultaneously.",
+        tp1_label: "No New Platform",
+        tp1_text: "Works inside existing workflows. No behavior change required from either side.",
+        tp2_label: "Independent Record",
+        tp2_text: "What was said, agreed, and delivered — verified by both parties. No more \"you never told us that.\"",
+        tp3_label: "Both Sides, Day One",
+        tp3_text: "Buyer and seller signal from the start. The model can't be gamed by one side.",
+        phil_subtitle: "The Six Principles of the Choi Clan · Gyeongju, Korea · 400 Years",
+        y0_label: "Don't seek power beyond your purpose",
+        y1_label: "Do not exploit hardship",
+        y1_desc: "Never buy land during a bad harvest. Do not extract from those already stretched. This is the principle we refused to violate — and why chiwon.ai exists.",
+        y2_label: "Give back when you have enough",
+        y2_desc: "When you accumulate beyond your needs, return the surplus to the community. Value created in commerce should flow to both sides — not pool at the top.",
+        y3_label: "No one in your reach goes without",
+        y3_desc: "You are responsible for the people in your ecosystem — not just your own outcomes. Commerce built on this principle doesn't extract. It sustains.",
+        y0_label: "Don't seek power beyond your purpose",
+        y4_label: "Treat those who come to you with generosity",
+        y6_label: "Do not hoard wealth",
+        phil_closing: "These principles built 400 years of prosperity. Chung Ju-yung built Hyundai on the same instinct. We're wiring them into the commerce layer of the agentic economy.",
+        bottom_h2: "Be first to know<br>when we launch.",
+        bottom_p: "We're building in the open with a small group. If you're a buyer, seller, researcher, or investor who believes commerce should work for both sides — we want to hear from you.",
+        footer_note: "치원 · 致遠 · Building for the long run"
+      },
+      ko: {
+        nav_cta: "대기자 명단 등록",
+        nav_philosophy: "우리의 철학",
+        hero_eyebrow: "에이전틱 커머스 인프라스트럭처",
+        hero_headline: "기본값은 착취입니다.<br><em>우리가 바꾸겠습니다.</em>",
+        hero_sub: "AI 에이전트가 기계의 속도로 상거래를 수행하려 하고 있습니다. 오늘 설정되는 기준이 앞으로 수십 년간 비즈니스 방식을 결정할 것입니다. chiwon.ai는 인프라에 윤리를 내재화합니다 — 시스템이 사람을 착취하는 것이 아니라 사람을 위해 작동하도록.",
+        email_placeholder: "이메일 주소를 입력하세요",
+        cta_btn: "대기자 명단 등록",
+        hero_note: "스팸 없음. 준비가 되면 연락드리겠습니다.",
+        success_msg: "등록되었습니다. 곧 연락드리겠습니다.",
+        problem_label: "문제",
+        problem_1: "<strong>기업 영업을 위해 구축된 모든 AI는 판매자 데이터로만 훈련됩니다.</strong> 따라서 판매자의 결과만을 최적화합니다. 구매자는 모델에서 목소리를 낼 수 없었습니다.",
+        problem_2: "<strong>주요 플랫폼들은 가장 많이 지불하는 측에게 접근권을 줍니다.</strong> OpenAI. Google. Meta. 추천은 중립적이지 않습니다 — 경매로 결정됩니다. 이것이 상거래가 구축되고 있는 인프라입니다.",
+        problem_3: "<strong>올바른 일을 하는 기업들이 처벌받습니다.</strong> 조작하는 판매자들과 경쟁하고, 이미 상처받은 구매자의 신뢰를 재구축해야 합니다. 시스템은 착취를 보상합니다 — 정직한 판매자조차 그 방향으로 끌립니다.",
+        problem_4: "<strong>기준이 지금 설정되고 있습니다.</strong> AI 에이전트들은 기계의 속도로 모든 상업적 거래에서 이 방식을 실행할 것입니다. 아무도 기본값이 올바른지 확인하지 않고 있습니다.",
+        thesis_label: "우리의 접근법",
+        thesis_headline: "양방향 인텔리전스 — 구매자와 판매자 신호를 <em>동시에</em> 학습합니다.",
+        tp1_label: "새로운 플랫폼 불필요",
+        tp1_text: "기존 워크플로우 내에서 작동합니다. 양측 모두 행동 변화가 필요하지 않습니다.",
+        tp2_label: "독립적 기록",
+        tp2_text: "무엇이 말해지고, 합의되고, 전달되었는지 — 양측이 검증합니다. '그런 말 한 적 없다'는 더 이상 없습니다.",
+        tp3_label: "처음부터 양측 모두",
+        tp3_text: "처음부터 구매자와 판매자 신호를 함께. 모델은 한쪽이 조작할 수 없습니다.",
+        phil_subtitle: "최부자 육훈 · 경주 최씨 · 400년",
+        y1_label: "어려움을 착취하지 말라",
+        y1_desc: "흉년에 남의 논을 사지 않는 것. 이미 힘겨운 이들에게서 빼앗지 않는 것. 우리가 거부한 원칙이며, chiwon.ai가 존재하는 이유입니다.",
+        y2_label: "충분할 때 사회에 환원하라",
+        y2_desc: "필요 이상으로 축적할 때는 잉여를 공동체에 돌려줍니다. 상거래에서 창출된 가치는 양측에 흘러야 합니다 — 상단에 고여서는 안 됩니다.",
+        y3_label: "내 영역에서 굶는 이가 없게 하라",
+        y3_desc: "자신의 결과만이 아닌 생태계의 사람들에 대한 책임이 있습니다. 이 원칙 위에 세워진 상거래는 착취하지 않습니다. 지속됩니다.",
+        y0_label: "분수를 넘는 권력을 탐하지 말라",
+        y4_label: "찾아오는 이를 후하게 대접하라",
+        y6_label: "재물을 쌓아두지 말라",
+        phil_closing: "이 원칙들은 400년의 번영을 이루었습니다. 정주영은 같은 본능으로 현대를 세웠습니다. 우리는 이를 에이전틱 경제의 커머스 레이어에 내재화합니다.",
+        bottom_h2: "출시 소식을<br>가장 먼저 받아보세요.",
+        bottom_p: "소수의 그룹과 함께 공개적으로 구축하고 있습니다. 상거래가 양측 모두를 위해 작동해야 한다고 믿는 구매자, 판매자, 연구자, 투자자라면 — 함께하고 싶습니다.",
+        footer_note: "치원 · 致遠 · 오래도록 세우는 것"
+      },
+      es: {
+        nav_cta: "Unirse a la lista",
+        nav_philosophy: "Nuestra Filosofía",
+        hero_eyebrow: "Infraestructura de Comercio Agéntico",
+        hero_headline: "El valor predeterminado es la extracción.<br><em>Lo estamos cambiando.</em>",
+        hero_sub: "Los agentes de IA están a punto de realizar comercio a velocidad máquina. Las normas que se establecen hoy definirán cómo se hacen los negocios durante décadas. chiwon.ai está construyendo la ética en la infraestructura — para que el sistema trabaje para las personas en lugar de extraer de ellas.",
+        email_placeholder: "tu@email.com",
+        cta_btn: "Unirse a la lista",
+        hero_note: "Sin spam. Te contactaremos cuando estemos listos.",
+        success_msg: "Estás en la lista. Estaremos en contacto.",
+        problem_label: "El Problema",
+        problem_1: "<strong>Toda IA construida para ventas empresariales se entrena con datos del vendedor.</strong> Por eso optimiza los resultados del vendedor. El comprador nunca tuvo voz en el modelo.",
+        problem_2: "<strong>Las principales plataformas dan acceso a quien más paga.</strong> OpenAI. Google. Meta. Las recomendaciones no son neutrales — se subastan. Esa es la infraestructura sobre la que se está construyendo el comercio.",
+        problem_3: "<strong>Las buenas empresas son castigadas por hacer lo correcto.</strong> Compitiendo contra vendedores manipuladores. Reconstruyendo la confianza con compradores ya dañados. El sistema recompensa la extracción — incluso los vendedores honestos son arrastrados hacia ella.",
+        problem_4: "<strong>Las normas se están estableciendo ahora mismo.</strong> Los agentes de IA ejecutarán este esquema en cada transacción comercial a velocidad máquina. Nadie está asegurando que los valores predeterminados sean correctos.",
+        thesis_label: "Nuestro Enfoque",
+        thesis_headline: "Inteligencia bilateral — entrenada con señales de <em>ambos</em>, comprador y vendedor, simultáneamente.",
+        tp1_label: "Sin nueva plataforma",
+        tp1_text: "Funciona dentro de los flujos de trabajo existentes. No se requiere cambio de comportamiento de ninguna de las partes.",
+        tp2_label: "Registro independiente",
+        tp2_text: "Lo que se dijo, acordó y entregó — verificado por ambas partes. No más \"nunca dijiste eso.\"",
+        tp3_label: "Ambos lados desde el día uno",
+        tp3_text: "Señales de comprador y vendedor desde el principio. El modelo no puede ser manipulado por un solo lado.",
+        phil_subtitle: "Los Seis Principios del Clan Choi · Gyeongju, Corea · 400 Años",
+        y1_label: "No explotar la adversidad",
+        y1_desc: "Nunca comprar tierra durante una mala cosecha. No extraer de quienes ya están al límite. Este es el principio que nos negamos a violar — y la razón por la que existe chiwon.ai.",
+        y2_label: "Devolver cuando tienes suficiente",
+        y2_desc: "Cuando acumulas más allá de tus necesidades, devuelve el excedente a la comunidad. El valor creado en el comercio debe fluir hacia ambos lados — no acumularse en la cima.",
+        y3_label: "Nadie en tu alcance pasa necesidad",
+        y3_desc: "Eres responsable de las personas en tu ecosistema — no solo de tus propios resultados. El comercio construido sobre este principio no extrae. Sostiene.",
+        y0_label: "No busques poder más allá de tu propósito",
+        y4_label: "Trata con generosidad a quienes vienen a ti",
+        y6_label: "No acumules riqueza",
+        phil_closing: "Estos principios construyeron 400 años de prosperidad. Chung Ju-yung construyó Hyundai con el mismo instinto. Los estamos incorporando en la capa de comercio de la economía agéntica.",
+        bottom_h2: "Sé el primero en saber<br>cuando lancemos.",
+        bottom_p: "Estamos construyendo abiertamente con un pequeño grupo. Si eres comprador, vendedor, investigador o inversor que cree que el comercio debe funcionar para ambos lados — queremos saber de ti.",
+        footer_note: "치원 · 致遠 · Construyendo para el largo plazo"
+      }
+    };
+
+    let currentLang = 'en';
+
+    function setLang(lang) {
+      currentLang = lang;
+      const t = i18n[lang];
+      document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key] !== undefined) el.placeholder = t[key];
+      });
+      const foundationLabels = { en: 'We build on this', ko: '우리가 기반으로 삼는 원칙', es: 'Lo que construimos' };
+      document.querySelectorAll('.yookhun-item.highlighted').forEach(el => {
+        el.setAttribute('data-foundation', foundationLabels[lang] || foundationLabels.en);
+      });
+      document.body.style.fontFamily = lang === 'ko'
+        ? "'Noto Serif KR', serif"
+        : "'DM Sans', sans-serif";
+    }
+
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    function handleSignup(source) {
+      const input = document.getElementById(source + '-email');
+      const email = input.value.trim();
+      if (!email || !email.includes('@')) {
+        input.style.borderColor = '#c8472b';
+        setTimeout(() => input.style.borderColor = '', 1000);
+        return;
+      }
+      if (source === 'hero') {
+        document.getElementById('hero-form-wrap').style.display = 'none';
+        document.querySelector('.hero-note').style.display = 'none';
+        document.getElementById('hero-success').style.display = 'block';
+      } else {
+        document.querySelector('.bottom-form').style.display = 'none';
+        document.getElementById('bottom-success').style.display = 'block';
+      }
+    }
+
+    document.getElementById('hero-email').addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSignup('hero');
+    });
+    document.getElementById('bottom-email').addEventListener('keydown', e => {
+      if (e.key === 'Enter') handleSignup('bottom');
+    });
+  </script>
+</body>
+</html>
